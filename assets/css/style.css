@@ -6,12 +6,12 @@
     --hoverColor: #bd61e7;
     --secondary: #fffaf0;
     --purpleColor: #361d74;
-    --grey: #333;
+    --grey: rgba(51, 51, 51, 0.664);
     font-size: 100%;
   }
 body {
     background: #fcfcfc;
-    color: var(--grey);
+    color: #333;;
     margin: 0;
     padding: 0;
     display: flex;
@@ -19,7 +19,6 @@ body {
     flex-direction: column;
    
   }
-  
   header {
     /* background: var(--secondary); */
     padding: 25px 20px;
@@ -52,7 +51,9 @@ body {
       text-align: center;
   }
   
-  #score-box
+  #score-box,
+  .finalResultSection
+
   {
       text-align: left;
   }
@@ -85,12 +86,12 @@ body {
       cursor: pointer;
   }
 
-  .scoreDetail{
+  li .scoreDetail{
     padding: 5px;
     margin: 5px;    
     width: 200px;
     background-color: rgba(128, 0, 128, 0.199);
-    color: black;
+    color: #333;
 }
   button{
       background-color:  var(--purpleColor);
@@ -109,6 +110,9 @@ body {
       font-style: italic;
       color: var(--grey);
       text-align: initial;
+      font-size: 20px;
+      padding: 5px;
+      border-top: solid 1px var(--grey);
   }
   h4{
       text-align: left;
