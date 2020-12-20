@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --hoverColor: #bd61e7;
+    --secondary: #fffaf0;
+    --purpleColor: #361d74;
+    --grey: #333;
+    font-size: 100%;
+  }
+body {
+    background: #fcfcfc;
+    color: var(--grey);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+   
+  }
+  
+  header {
+    /* background: var(--secondary); */
+    padding: 25px 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  header .timer{
+      display: flex;
+      justify-content: space-between;
+      
+  }
+  header .timer #time_text{
+    margin: 0px 5px;
+  }
+  header .timer #time_sec{
+      font-weight: bold;
+  }
+  #info-box,
+  #score-box,
+  .questionSection,
+  .finalResultSection
+  {
+      /* align-self: center; */
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      width: 600px;
+      transform: translate(-50%,-50%);
+      text-align: center;
+  }
+  
+  #score-box
+  {
+      text-align: left;
+  }
+  #scoresDiv{
+      margin-left: 0px;
+  }
+  .questionH1{
+        text-align: left;
+        font-weight: bold;
+  }
+
+  ol{
+        text-align: left;
+        list-style-position: inside;
+        padding-left: 0px;
+  }
+  li{
+      padding: 10px 10px;
+      margin: 5px;
+      width: 50%;
+      border-radius: 5px;
+      font-weight: bold;
+      background-color: var(--purpleColor);
+      color: white;
+  }
+  li:hover{
+      /* opacity: 0.5; */
+      background-color: var(--hoverColor);
+      /* #bd61e7 */
+      cursor: pointer;
+  }
+
+  .scoreDetail{
+    padding: 5px;
+    margin: 5px;    
+    width: 200px;
+    background-color: rgba(128, 0, 128, 0.199);
+    color: black;
+}
+  button{
+      background-color:  var(--purpleColor);
+      color: white;
+      font-weight: bold;
+      outline: none;
+      border: none;
+      padding: 5px 12px;
+      font-size: 15px;
+      border-radius: 7px;
+      cursor: pointer;
+      margin: 5px;
+  }
+ 
+  .showcorrectAnswerDiv {
+      font-style: italic;
+      color: var(--grey);
+      text-align: initial;
+  }
+  h4{
+      text-align: left;
+      
+  }
+  
