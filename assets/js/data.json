@@ -65,5 +65,15 @@
         "2":"false"
     },
     "correctAnswer":"2"
+},
+{
+    "question":"String values must be enclosed within ________ when being assigned to variables.",
+    "option":{
+        "1":"Commas",
+        "2":"Curly brackets",
+        "3":"Quotes",
+        "4":"Parentheses"
+    },
+    "correctAnswer":"3"
 }
 ]

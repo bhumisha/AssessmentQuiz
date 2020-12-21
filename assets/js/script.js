@@ -1,77 +1,9 @@
+// Variable and Controls Declaration.
+var questions;
+var timeLimit =  75;
+var questionIndex = 0;
 
-// var questions = [{
-//                     q:"Which one is wrong JavaScript Data Types?",
-//                     option:{
-//                         1:"Number",
-//                         2:"String",
-//                         3:"Boolean",
-//                         4:"Long"
-//                     },
-//                     correctAnswer:"4"
-//                 },
-//                 {
-//                     q:"Which function joins all elements of an array into a string??",
-//                     option:{
-//                         1:"pop()",
-//                         2:"join()",
-//                         3:"append()",
-//                         4:"concat()"
-//                     },
-//                     correctAnswer:"2"
-//                 },
-//                 {
-//                     q:"Which built-in method returns the character at the specified index of String?",
-//                     option:{
-//                         1:"indexOf()",
-//                         2:"valueOf()",
-//                         3:"charAt()",
-//                         4:"substr()"
-//                     },
-//                     correctAnswer:"3"
-//                 },
-//                 {
-//                     q:"Which of the following is not a valid JavaScript variable name?",
-//                     option:{
-//                         1:"Name1",
-//                         2:"First_Last",
-//                         3:"34Rooms",
-//                         4:"None of above"
-//                     },
-//                     correctAnswer:"3"
-//                 },
-//                 {
-//                     q:"Inside which HTML tag do we put the JavaScript?",
-//                     option:{
-//                         1:"<js>",
-//                         2:"<scripting>",
-//                         3:"<script>",
-//                         4:"<javascript>"
-//                     },
-//                     correctAnswer:"3"
-//                 },
-//                 {
-//                     q:" _______ statement is used to test a specific condition",
-//                     option:{
-//                         1:"Select",
-//                         2:"If",
-//                         3:"Switch",
-//                         4:"For"
-//                     },
-//                     correctAnswer:"2"
-//                 },
-//                 {
-//                     q:"The external JavaScript file must contain <script> tag. True or False?",
-//                     option:{
-//                         1:"true",
-//                         2:"false"
-//                     },
-//                     correctAnswer:"2"
-//                 },
-
-//             ];
-
-
-
+// Reading JSON data from file.
 function loadJSON(callback) {   
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
@@ -83,31 +15,31 @@ function loadJSON(callback) {
     };  
     xobj.send(null);  
 }
-var questions;
+// Question is array which contains all data.
 loadJSON(function(json) {
     console.log(json); // this will log out the json object
     questions = json; 
 });
-var timeLimit =  60;
-var questionIndex=0;
-var userScore =0;
 
-var timerDivEl = document.getElementById("time_sec");
-var mainSection = document.getElementById("info-box");
+//Control Creation
 var parentEl = document.getElementById("main");
+var timerDivEl = document.getElementById("time_sec");
+var quizInfoSetion = document.getElementById("info-box");
 var startbtn = document.getElementById("start_btn");
 startbtn.addEventListener("click",startQuiz);
 
-
-
+//Start Quiz Button Click 
 function startQuiz(){
-    parentEl.removeChild(mainSection);
+    parentEl.removeChild(quizInfoSetion);
     countdown();
     createQuestionSection();
     startQuestionsQuiz();
 }
+
+var  timerStart
+//Timer 
 function countdown(){
-   var  timerStart = setInterval(function(){
+       timerStart = setInterval(function(){
         timeLimit--;
         if(timeLimit >= 0){
             timerDivEl.textContent = timeLimit;
@@ -116,10 +48,19 @@ function countdown(){
             clearInterval(timerStart);
         }
     },1000);
-   
-   
 }
 
+function startQuestionsQuiz(){
+    if(questionIndex < questions.length && timeLimit > 0){
+        createAnswerPanel();
+    }
+    else{
+        parentEl.removeChild(document.getElementById("CurrentQuestionSection"));
+        clearInterval(timerStart);
+        createShowScoreSection();
+    }
+}
+//Create 
 function createQuestionSection(){
     var section = document.createElement("div");
     section.id="CurrentQuestionSection";
@@ -132,7 +73,6 @@ function createQuestionSection(){
     var answerDivEl = document.createElement("div");
     answerDivEl.setAttribute("class","answerDiv");
     
-
     var optionEl = document.createElement("ol");
     optionEl.id="optionEL"
 
@@ -147,16 +87,7 @@ function createQuestionSection(){
     section.appendChild(currentQuestionResult);
     parentEl.appendChild(section);     
 }
-function startQuestionsQuiz(){
-    if(questionIndex < questions.length && timeLimit > 0){
-        createAnswerPanel();
-    }
-    else{
-        parentEl.removeChild(document.getElementById("CurrentQuestionSection"));
-        userScore = timeLimit;
-        showScore(userScore)
-    }
-}
+
 
 function createAnswerPanel(){
     document.querySelector("#optionEL").innerHTML="";
@@ -193,32 +124,49 @@ function submitAnswer(event,correctAnswer){
     
 }
 
+
+//Form submit to  store initals with score in LocalStorage.
 var submitInitials = function(event) {
     event.preventDefault();
-    var taskNameInput = document.querySelector("input[name='task-name']").value;
+    
+    var taskNameInput = document.querySelector("input[name='initialsText']").value;
+    var scoreObj = {"name":taskNameInput ,"score":timeLimit};
+
+
     var scoreArray;
+    //checking the score detail
     if(localStorage.getItem("scoreDetail")){
         scoreArray= JSON.parse(localStorage.getItem("scoreDetail") || []);
     }
     else{
         scoreArray = [];
     }
-    var scoreObj = {"name":taskNameInput ,"score":userScore};
-  
-  // TODO: If they are null, return early from this function
-    if(scoreArray){ //! means undefined , null , '' , false ,0
-        scoreArray.push(scoreObj);
-        localStorage.setItem("scoreDetail",JSON.stringify(scoreArray));
+    if(scoreArray){ 
+        var existingRecord = false;
+        for(obj in scoreArray){
+            var name = scoreArray[obj].name;
+            if(name.toUpperCase() === taskNameInput.toUpperCase()){
+                existingRecord = true;
+                scoreArray[obj].score = timeLimit;
+                localStorage.setItem("scoreDetail",JSON.stringify(scoreArray));
+            }
+        }
+        if(!existingRecord){
+            scoreArray.push(scoreObj);
+            localStorage.setItem("scoreDetail",JSON.stringify(scoreArray));
+        }
     }
     window.location.href = "../../src/highscore.html";
   
   };
 
-function showScore(){
+//Create Score section and form which ask for initials.
+function createShowScoreSection(){
 
     var section = document.createElement("div");
     section.id="scoreDiv";
     section.setAttribute("class","finalResultSection");
+
 
     var questionH1El = document.createElement("h1");
     questionH1El.id="scoreH1";
@@ -229,16 +177,16 @@ function showScore(){
     scoreH4.textContent= "Your Final Score is " + timeLimit;
     
     var taskForm = document.createElement("form");
+
     var labelForm = document.createElement("label");
-    var inputText= document.createElement("input");
-    var submitForm = document.createElement("button");
-
     labelForm.textContent = "Enter Initials : "
-
-    inputText.setAttribute("type","text");
-    inputText.setAttribute("name","task-name");
-    inputText.setAttribute("placeholder","Enter Initial");
     
+    var inputText= document.createElement("input");
+    inputText.setAttribute("type","text");
+    inputText.setAttribute("name","initialsText");
+    inputText.setAttribute("placeholder","Enter Initial");
+
+    var submitForm = document.createElement("button");
     submitForm.setAttribute("type","submit");
     submitForm.textContent="Submit";
     submitForm.id="save-task";
