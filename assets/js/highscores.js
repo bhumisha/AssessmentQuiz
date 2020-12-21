@@ -7,7 +7,7 @@ scoresDiv.appendChild(olEl);
 
 //link back to main quiz page.
 var goBackToHomePage = function(){
-    window.location.href = "./index.html";
+    window.location.href = "../index.html";
 }
 //Clear highscore - remove all data from local storage.
 var clearHighScoreDetails = function(){
