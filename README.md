@@ -21,5 +21,8 @@ You can view and play quiz using below link https://bhumisha.github.io/Assessmen
 This project includes HTML,CSS and Javascript. main logic is written in javascript. Js file contains DOM manipulation, conditional statements / loop statement /
 to modularised code we have used functions. LocalStorage is also used to store score for users.
 
-The following animation demonstrates the application functionality:
+The following screen demonstrates the application functionality: page by page.
 ![](assets/images/startpage.png)
+![](assets/images/quizpage.png)
+![](assets/images/quizcomplete.png)
+![](assets/images/highscorepage.png)
