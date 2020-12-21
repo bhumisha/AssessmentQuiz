@@ -156,7 +156,7 @@ var submitInitials = function(event) {
             localStorage.setItem("scoreDetail",JSON.stringify(scoreArray));
         }
     }
-    window.location.href = "../../src/highscore.html";
+    window.location.href = "./src/highscore.html";
   
   };
 
