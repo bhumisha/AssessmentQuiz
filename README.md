@@ -22,7 +22,11 @@ This project includes HTML,CSS and Javascript. main logic is written in javascri
 to modularised code we have used functions. LocalStorage is also used to store score for users.
 
 The following screen demonstrates the application functionality: page by page.
+Welcome Page
 ![](assets/images/startpage.png)
+Quiz Starts
 ![](assets/images/quizpage.png)
+quiz complete and add initials
 ![](assets/images/quizcomplete.png)
+highscore page
 ![](assets/images/highscorepage.png)
